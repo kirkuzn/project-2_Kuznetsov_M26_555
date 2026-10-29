@@ -62,4 +62,6 @@ uv run ruff check .
 
 ## 6. Демонстрация в asciinema
 
+<img width="1171" height="694" alt="demo1" src="https://github.com/user-attachments/assets/2c8c75ed-4f76-485d-97c3-31a60b4a208f" />
+
 
