@@ -1,4 +1,4 @@
-'''Модуль декораторов базы данных.'''
+"""Модуль декораторов базы данных."""
 
 import time
 
@@ -6,7 +6,7 @@ from primitive_db.constants import CONFIRM_YES
 
 
 def handle_db_errors(target_function):
-    '''Декоратор для обработки ошибок.'''
+    """Декоратор для обработки ошибок."""
     def error_wrapper(*args, **kwargs):
         try:
             return target_function(*args, **kwargs)
@@ -29,7 +29,7 @@ def handle_db_errors(target_function):
 
 
 def confirm_action(action_display_name):
-    '''Декоратор для обработки подтверждений операций.'''
+    """Декоратор для обработки подтверждений операций."""
     def decorator_wrapper(target_function):
         def action_wrapper(*args, **kwargs):
             confirmation_prompt = input(
@@ -45,7 +45,7 @@ def confirm_action(action_display_name):
 
 
 def log_time(target_function):
-    '''Декоратор для вывода времени выполнения функции.'''
+    """Декоратор для вывода времени выполнения функции."""
     def time_wrapper(*args, **kwargs):
         start_monotonic_time = time.monotonic()
         execution_result = target_function(*args, **kwargs)
@@ -60,11 +60,11 @@ def log_time(target_function):
 
 
 def create_cacher():
-    '''Создает кэш.'''
+    """Создает кэш."""
     query_cache_storage = {}
 
     def cache_result(cache_key, fetch_value_function):
-        '''Возвращает значение из кэша.'''
+        """Возвращает значение из кэша."""
         if cache_key not in query_cache_storage:
             query_cache_storage[cache_key] = fetch_value_function()
         return query_cache_storage[cache_key]

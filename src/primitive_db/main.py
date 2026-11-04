@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
-'''Вход в приложение.'''
+"""Вход в приложение."""
 
 from primitive_db.engine import run
 
 
 def main():
-    '''Запуск приложения'''
+    """Запуск приложения."""
     run()
 
 

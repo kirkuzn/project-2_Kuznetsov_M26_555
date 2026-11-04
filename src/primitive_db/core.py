@@ -1,4 +1,4 @@
-'''Управление таблицами и записями.'''
+"""Управление таблицами и записями."""
 
 from primitive_db.constants import (
     BOOL_FALSE_VALUES,
@@ -18,12 +18,12 @@ from primitive_db.utils import load_table_data
 
 
 def _unquote(text):
-    '''Убирает обрамляющие одинарные или двойные кавычки.'''
+    """Убирает обрамляющие одинарные или двойные кавычки."""
     return text.strip(QUOTE_CHARS)
 
 
 def to_bool(value_to_convert):
-    '''Приводит значение к bool или вызывает ValueError.'''
+    """Приводит значение к bool или вызывает ValueError."""
     value = _unquote(str(value_to_convert)).lower()
     if value in BOOL_TRUE_VALUES:
         return True
@@ -36,12 +36,12 @@ _CONVERTERS = {TYPE_INT: int, TYPE_BOOL: to_bool}
 
 
 def _convert(value, type_name):
-    '''Приводит значение к типу по его имени; по умолчанию — str.'''
+    """Приводит значение к типу по его имени; по умолчанию — str."""
     return _CONVERTERS.get(type_name, str)(value)
 
 
 def _type_name_of(value):
-    '''Возвращает имя типа значения: bool, int или None для str.'''
+    """Возвращает имя типа значения: bool, int или None для str."""
     if isinstance(value, bool):
         return TYPE_BOOL
     if isinstance(value, int):
@@ -50,7 +50,7 @@ def _type_name_of(value):
 
 
 def validate_condition(clause, table_schema):
-    '''Проверяет типы значений условия по схеме таблицы.'''
+    """Проверяет типы значений условия по схеме таблицы."""
     types_by_name = dict(table_schema)
     for column_name, raw_value in clause.items():
         column_type = types_by_name.get(column_name)
@@ -67,7 +67,7 @@ def validate_condition(clause, table_schema):
 
 
 def _matches(record, clause):
-    '''Проверяет, подходит ли запись под все условия фильтра.'''
+    """Проверяет, подходит ли запись под все условия фильтра."""
     for key, value in clause.items():
         if key not in record:
             return False
@@ -81,7 +81,7 @@ def _matches(record, clause):
 
 @handle_db_errors
 def create_table(metadata, table_name, raw_columns):
-    '''Создаёт таблицу, добавляет ID:int и сохраняет схему.'''
+    """Создаёт таблицу, добавляет ID:int и сохраняет схему."""
     if table_name in metadata:
         print(f'Ошибка: Таблица "{table_name}" уже существует.')
         return None
@@ -120,7 +120,7 @@ def create_table(metadata, table_name, raw_columns):
 
 
 def list_tables(metadata):
-    '''Выводит список всех существующих таблиц.'''
+    """Выводит список всех существующих таблиц."""
     if not metadata:
         print('Нет созданных таблиц.')
         return
@@ -131,7 +131,7 @@ def list_tables(metadata):
 @handle_db_errors
 @confirm_action('удаление таблицы')
 def drop_table(metadata, table_name):
-    '''Удаляет таблицу из метаданных после подтверждения.'''
+    """Удаляет таблицу из метаданных после подтверждения."""
     if table_name not in metadata:
         return None
     del metadata[table_name]
@@ -142,7 +142,7 @@ def drop_table(metadata, table_name):
 @handle_db_errors
 @log_time
 def insert(metadata, table_name, values):
-    '''Проверяет значения, генерирует ID и добавляет запись.'''
+    """Проверяет значения, генерирует ID и добавляет запись."""
     if table_name not in metadata:
         raise KeyError(table_name)
 
@@ -170,7 +170,7 @@ def insert(metadata, table_name, values):
 @handle_db_errors
 @log_time
 def select(table_data, where_clause=None):
-    '''Возвращает записи, подходящие под условие WHERE.'''
+    """Возвращает записи, подходящие под условие WHERE."""
     if not where_clause:
         return table_data
     return [r for r in table_data if _matches(r, where_clause)]
@@ -179,7 +179,7 @@ def select(table_data, where_clause=None):
 @handle_db_errors
 @log_time
 def update(table_data, set_clause, where_clause):
-    '''Обновляет поля записей, подходящих под условие WHERE.'''
+    """Обновляет поля записей, подходящих под условие WHERE."""
     if ID_COLUMN in set_clause:
         raise ValueError(
             'Запрещено изменять уникальный идентификатор ID таблицы!'
@@ -200,13 +200,13 @@ def update(table_data, set_clause, where_clause):
 @confirm_action('удаление записей')
 @log_time
 def delete(table_data, where_clause):
-    '''Удаляет записи, подходящие под условие WHERE.'''
+    """Удаляет записи, подходящие под условие WHERE."""
     return [r for r in table_data if not _matches(r, where_clause)]
 
 
 @handle_db_errors
 def info(metadata, table_name, table_records):
-    '''Печатает схему таблицы и количество записей в ней.'''
+    """Печатает схему таблицы и количество записей в ней."""
     schema = metadata[table_name]
     columns = ', '.join(
         f'{name}:{type_}' for name, type_ in schema

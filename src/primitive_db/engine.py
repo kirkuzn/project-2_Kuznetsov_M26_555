@@ -1,4 +1,4 @@
-'''Обработка команд пользователя'''
+"""Обработка команд пользователя."""
 
 import os
 import shlex
@@ -43,7 +43,7 @@ query_cacher_function, active_cache_dictionary = create_cacher()
 
 
 def print_help():
-    '''Выводит справочную информацию о доступных командах'''
+    """Выводит справочную информацию о доступных командах."""
     print('***Операции с данными***')
     print()
     print('Функции:')
@@ -76,7 +76,7 @@ def print_help():
 
 
 def show_formatted_table(table_schema, records_list):
-    '''Выводит записи в виде таблицы'''
+    """Выводит записи в виде таблицы."""
     table_column_names = [column_info[0] for column_info in table_schema]
     pretty_table_renderer = PrettyTable(table_column_names)
     for row_record in records_list:
@@ -87,7 +87,7 @@ def show_formatted_table(table_schema, records_list):
 
 
 def _require_table(metadata, table_name):
-    '''Возвращает схему таблицы или None'''
+    """Возвращает схему таблицы или None."""
     if table_name not in metadata:
         print(f'Ошибка: Таблица "{table_name}" не существует.')
         return None
@@ -95,7 +95,7 @@ def _require_table(metadata, table_name):
 
 
 def _validate_clause(clause, table_schema):
-    '''Проверка типов по условию'''
+    """Проверка типов по условию."""
     try:
         validate_condition(clause, table_schema)
         return True
@@ -105,7 +105,7 @@ def _validate_clause(clause, table_schema):
 
 
 def _columns_missing(clause, schema_keys):
-    '''Проверяет колонки и печатает ошибку'''
+    """Проверяет колонки и печатает ошибку."""
     for column in clause:
         if column not in schema_keys:
             print(f'Ошибка: Таблица или столбец {column} не найден.')
@@ -115,7 +115,7 @@ def _columns_missing(clause, schema_keys):
 
 def _print_affected(table_name, action_singular, action_plural,
                     affected_ids, from_table=False):
-    '''Сообщает, какие записи изменены.'''
+    """Сообщает, какие записи изменены."""
     if len(affected_ids) == 1:
         if from_table:
             print(
@@ -146,7 +146,7 @@ def _print_affected(table_name, action_singular, action_plural,
 
 
 def run(storage_filepath=META_FILE):
-    '''Цикл чтения и выполнения команд'''
+    """Цикл чтения и выполнения команд."""
     print_help()
     print()
 

@@ -1,10 +1,10 @@
-'''Парсеры для сложных команд.'''
+"""Парсеры для сложных команд."""
 
 from primitive_db.constants import QUOTE_CHARS
 
 
 def parse_where(expression_elements):
-    '''Превращает элементы WHERE в словарь.'''
+    """Превращает элементы WHERE в словарь."""
     if len(expression_elements) == 3 and expression_elements[1] == '=':
         key = expression_elements[0].strip(QUOTE_CHARS)
         value = expression_elements[2].strip(QUOTE_CHARS)
@@ -13,7 +13,7 @@ def parse_where(expression_elements):
 
 
 def parse_set(expression_elements):
-    '''Превращает элементы SET в словарь.'''
+    """Превращает элементы SET в словарь."""
     if len(expression_elements) == 3 and expression_elements[1] == '=':
         key = expression_elements[0].strip(QUOTE_CHARS)
         value = expression_elements[2].strip(QUOTE_CHARS)
@@ -22,7 +22,7 @@ def parse_set(expression_elements):
 
 
 def _split_respecting_quotes(text, separator):
-    '''Делит строку.'''
+    """Делит строку."""
     parts = []
     current_chars = []
     active_quote = None
@@ -45,7 +45,7 @@ def _split_respecting_quotes(text, separator):
 
 
 def parse_values(values_arguments):
-    '''Делит аргументы на значения'''
+    """Делит аргументы на значения."""
     cleaned_values = []
     for argument in values_arguments:
         for piece in _split_respecting_quotes(argument, ','):
