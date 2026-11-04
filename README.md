@@ -62,3 +62,6 @@ uv run ruff check .
 
 ## 6. Демонстрация в asciinema
 
+[![asciicast](https://asciinema.org/a/f24dGVWQBpDKSj7Y.svg)](https://asciinema.org/a/f24dGVWQBpDKSj7Y)
+
+
