@@ -1,7 +1,13 @@
 #!/usr/bin/env python3
+'''Вход в приложение.'''
+
+from primitive_db.engine import run
+
 
 def main():
-    print("DB project is running!")
+    '''Запуск приложения'''
+    run()
 
-if __name__ == "__main__":
+
+if __name__ == '__main__':
     main()
